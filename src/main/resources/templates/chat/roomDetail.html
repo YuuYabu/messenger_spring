@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>WebSocket ChatRoom</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app" v-cloak>
+    <div>
+      <h2 class="same-row" style="float: left">{{room.name}}</h2>
+      <a th:href="@{/chat/room}" class="btn btn-primary same-row" style="float: right">チャットルーム一覧へ</a>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text">内容</label>
+      </div>
+      <input type="text" class="form-control" v-model="message" v-on:keypress.enter="sendMessage">
+      <div class="input-group-append">
+        <button type="button" class="btn btn-primary" @click="sendMessage">送る</button>
+      </div>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" v-for="message in messages">
+        {{message.sender}} - {{message.message}}
+      </li>
+    </ul>
+    <div></div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+  <script th:src="@{/webjars/axios/1.3.4/dist/axios.min.js}"></script>
+  <script th:src="@{/webjars/sockjs-client/1.5.1/sockjs.min.js}"></script>
+  <script th:src="@{/webjars/stomp-websocket/2.3.4/stomp.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/roomDetail.js}"></script>
+</body>
+
+</html>
