@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>WebSocket Chat</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app" v-cloak>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>チャットルーム一覧</h3>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text">チャットルーム名</label>
+      </div>
+      <input type="text" class="form-control" v-model="room_name" v-on:keyup.enter="createRoom">
+      <div class="input-group-append">
+        <button type="button" class="btn btn-primary" @click="createRoom">チャットルーム開設</button>
+      </div>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.roomId"
+        v-on:click="enterRoom(item.roomId)">{{item.name}}</li>
+    </ul>
+  </div>
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+  <script th:src="@{/webjars/axios/1.3.4/dist/axios.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/room.js}"></script>
+</body>
+
+</html>
